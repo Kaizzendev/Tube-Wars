@@ -11,4 +11,13 @@ public class NodeManager : MonoBehaviour
         Node[] nodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
         allNodes = new List<Node>(nodes);
     }
+
+    private void Update()
+    {
+        float deltaTime = Time.deltaTime;
+        foreach (Node node in allNodes)
+        {
+            node.Tick(deltaTime);
+        }
+    }
 }

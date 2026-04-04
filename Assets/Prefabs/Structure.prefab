@@ -125,4 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d14cfabe7b80e4f86f00b1fa94de94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Node
+  id: 0
+  ownerId: 0
+  currentUnits: []
+  neighbours: []
   nodeData: {fileID: 11400000, guid: c6406afb18ac4b04a801e409cf2ecaf1, type: 2}

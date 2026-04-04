@@ -6,9 +6,8 @@ using UnityEngine;
 public class NodeScriptable : ScriptableObject
 {
     [Header("Data")] 
-    [SerializeField] private string nodeName;
-    [SerializeField] private int productionRate;
-    [SerializeField] private int ownerId;
-     public int maxConnections;
+    [SerializeField] private int tier;
+    public float productionRate;
+    [SerializeField] private int maxUnits;
 
 }
