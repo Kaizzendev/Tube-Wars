@@ -5,8 +5,8 @@ namespace Node
 {
     public class NodeSelectionSystem : MonoBehaviour
     {
-        private Node originNode;
-        private Node targetNode;
+        private Node _originNode;
+        private Node _targetNode;
 
         public SquadManager squadManager;
         public Camera mainCamera;
@@ -34,24 +34,24 @@ namespace Node
 
         private void HandleNodeClick(Node clickedNode)
         {
-            if (originNode == null)
+            if (_originNode == null)
             {
-                originNode = clickedNode;
+                _originNode = clickedNode;
                 //TODO: Resaltar nodo seleccionado SelectedNode()
             }
-            else if (clickedNode != originNode)
+            else if (clickedNode != _originNode)
             {
-                targetNode = clickedNode; 
+                _targetNode = clickedNode; 
                 //TODO: Resaltar nodo seleccionado SelectedNode()
                 
                 
-                SendUnits(originNode, targetNode);
-                originNode = null;
-                targetNode = null;
+                SendUnits(_originNode, _targetNode);
+                _originNode = null;
+                _targetNode = null;
             }
             else
             {
-                originNode = null;
+                _originNode = null;
             }
         }
 

@@ -10,6 +10,6 @@ namespace Node
         [SerializeField] internal int tier;
         [SerializeField] internal float productionRate;
         [SerializeField] internal int maxUnits;
-
+        [SerializeField] internal float upgradeTimer;
     }
 }

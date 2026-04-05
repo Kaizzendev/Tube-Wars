@@ -7,20 +7,18 @@ namespace Node
     public class Node : MonoBehaviour
     {
         [Header("Data")]
-        [SerializeField] private int id;
         [SerializeField] internal int ownerId;
-        [SerializeField] internal int currentUnits = 4;
-        [SerializeField] internal float productionTimer;
-        [SerializeField] internal Color color;
+        [SerializeField] internal int currentUnits;
+        internal Color color;
+        private float _productionTimer;
+        private float _upgradeTimer;
+        private Material _material;
 
-        public event Action onChangeLeader;
-        
         [Header("Conections")]
         public List<Node> neighbours;
         
         public NodeScriptable nodeData;
-
-        private Material material;
+        public event Action onChangeLeader;
         
         private void Awake()
         {
@@ -42,8 +40,21 @@ namespace Node
                     break;
             }
             
-            material = GetComponent<Renderer>().material;
-            material.SetColor("_BaseColor", color);
+            _material = GetComponent<Renderer>().material;
+            _material.SetColor("_BaseColor", color);
+        }
+
+        private void UpgradeNode()
+        {
+            switch (nodeData.tier)
+            {
+                case 1:
+                    nodeData = Resources.Load<NodeScriptable>("Node/NodeScriptableTier2");
+                    break;
+                case 2:
+                    nodeData = Resources.Load<NodeScriptable>("Node/NodeScriptableTier3");
+                    break;
+            }
         }
 
         public bool IsConnectedTo(Node targetNode)
@@ -53,17 +64,18 @@ namespace Node
 
         public void Tick(float deltaTime)
         {
-            productionTimer += deltaTime;
-            if (productionTimer >= nodeData.productionRate)
+            _productionTimer += deltaTime;
+            if (_productionTimer >= nodeData.productionRate)
             {
                 ProduceUnit();
-                productionTimer = 0f;
+                _productionTimer = 0f;
             }
         }
 
         public void ProduceUnit()
         {
             currentUnits = Mathf.Min(++currentUnits, nodeData.maxUnits);
+            CheckUpgradeAvailable();
         }
         
         public void ReduceUnits(int unitsToReduce)
@@ -88,15 +100,30 @@ namespace Node
            onChangeLeader?.Invoke();
         }
 
-        public void IncreaseUnits(int unitsToIncrease)
+        private void IncreaseUnits(int unitsToIncrease)
         {
             currentUnits += unitsToIncrease;
+            CheckUpgradeAvailable();
+        }
+
+        private void CheckUpgradeAvailable()
+        {
             if (currentUnits >= nodeData.maxUnits)
             {
                 currentUnits = nodeData.maxUnits;
+                UpgradeProcess();
             }
         }
 
+        private void UpgradeProcess()
+        {
+            _upgradeTimer +=  Time.deltaTime;
+            if (_upgradeTimer >= nodeData.upgradeTimer)
+            {
+                _upgradeTimer = 0f;
+                UpgradeNode();
+            }
+        }
         public void ReceiveSquad(Squad squad)
         {
             if (squad.ownerId == ownerId)
@@ -108,6 +135,7 @@ namespace Node
             {
                 ReduceUnits(squad);
             }
+            Destroy(squad.gameObject);
             
         }
         

@@ -9,41 +9,41 @@ namespace Node
     {
         public Image image;
         public TMP_Text text;
-        private Node node;
+        private Node _node;
 
         public GameObject canvas;
 
         private void OnEnable()
         {
-            node.onChangeLeader += ChangeColor;
+            _node.onChangeLeader += ChangeColor;
         }
 
         private void OnDisable()
         {
-            node.onChangeLeader -= ChangeColor;
+            _node.onChangeLeader -= ChangeColor;
         }
 
         private void Awake()
         {
-            node = GetComponent<Node>();
+            _node = GetComponent<Node>();
         }
 
         private void Start()
         {
             text.text = "";
-            image.color = node.color;
+            image.color = _node.color;
         }
 
         private void ChangeColor()
         {
-            image.color = node.color;
+            image.color = _node.color;
         }
 
         private void Update()
         {
             if (Camera.main != null) canvas.transform.rotation = Camera.main.transform.rotation;
-            image.fillAmount =  Mathf.Clamp01((float) node.currentUnits / node.nodeData.maxUnits);
-            text.text = node.currentUnits.ToString();
+            image.fillAmount =  Mathf.Clamp01((float) _node.currentUnits / _node.nodeData.maxUnits);
+            text.text = _node.currentUnits.ToString();
         }
     }
 }

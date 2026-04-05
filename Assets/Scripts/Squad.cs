@@ -8,7 +8,6 @@ public class Squad : MonoBehaviour
     public Node.Node originNode;
     public Node.Node targetNode;
     public Node.Node currentNode;
-    public int id;
     public int ownerId;
     public int units;
     public float speed;

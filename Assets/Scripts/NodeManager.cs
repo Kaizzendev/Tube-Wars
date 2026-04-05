@@ -6,7 +6,7 @@ namespace Node
 {
     public class NodeManager : MonoBehaviour
     {
-        public List<Node> allNodes = new List<Node>();
+        private List<Node> allNodes = new List<Node>();
 
 
         private void OnEnable()
