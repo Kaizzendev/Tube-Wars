@@ -582,15 +582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50110e2dea7747c7b8d577c0be59e1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NodeManager
-  allNodes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &808501569
 Transform:
   m_ObjectHideFlags: 0
@@ -943,7 +934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitObjectPoolManager
   unitPrefab: {fileID: 1234073901001064583, guid: 433fe355fd62f944badb5e0760a46800, type: 3}
   allUnits: []
-  unitsToInstantiate: 40
+  unitsToInstantiate: 100
 --- !u!4 &1887902663
 Transform:
   m_ObjectHideFlags: 0

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: NodeScriptableTier3
   m_EditorClassIdentifier: Assembly-CSharp::NodeScriptable
   tier: 3
-  productionRate: 4
+  productionRate: 0.1
   maxUnits: 60
+  upgradeTimer: 0

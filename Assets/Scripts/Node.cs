@@ -11,9 +11,9 @@ namespace Node
         [SerializeField] internal int currentUnits;
         internal Color color;
         private float _productionTimer;
-        private float _upgradeTimer;
+        internal float _upgradeTimer;
         private Material _material;
-
+        internal bool isUpgrading;
         [Header("Conections")]
         public List<Node> neighbours;
         
@@ -81,6 +81,7 @@ namespace Node
         public void ReduceUnits(int unitsToReduce)
         {
             currentUnits -= unitsToReduce;
+            PauseUpgrade();
         }
 
         public void ReduceUnits(Squad squad)
@@ -90,6 +91,12 @@ namespace Node
            {
                ChangeLeader(squad, currentUnits);
            }
+           PauseUpgrade();
+        }
+
+        private void PauseUpgrade()
+        {
+            isUpgrading = false;
         }
 
         public void ChangeLeader(Squad squad, int expectedUnits)
@@ -108,11 +115,20 @@ namespace Node
 
         private void CheckUpgradeAvailable()
         {
-            if (currentUnits >= nodeData.maxUnits)
+            if (currentUnits >= nodeData.maxUnits && nodeData.tier != 3)
             {
                 currentUnits = nodeData.maxUnits;
-                UpgradeProcess();
+                isUpgrading = true;
             }
+        }
+
+        private void Update()
+        {
+            if (!isUpgrading)
+            {
+                return;
+            }
+            UpgradeProcess();
         }
 
         private void UpgradeProcess()
@@ -122,6 +138,8 @@ namespace Node
             {
                 _upgradeTimer = 0f;
                 UpgradeNode();
+                isUpgrading = false;
+                
             }
         }
         public void ReceiveSquad(Squad squad)
