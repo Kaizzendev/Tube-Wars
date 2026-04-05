@@ -13,6 +13,16 @@ namespace Node
 
         public GameObject canvas;
 
+        private void OnEnable()
+        {
+            node.onChangeLeader += ChangeColor;
+        }
+
+        private void OnDisable()
+        {
+            node.onChangeLeader -= ChangeColor;
+        }
+
         private void Awake()
         {
             node = GetComponent<Node>();
@@ -21,6 +31,11 @@ namespace Node
         private void Start()
         {
             text.text = "";
+            image.color = node.color;
+        }
+
+        private void ChangeColor()
+        {
             image.color = node.color;
         }
 

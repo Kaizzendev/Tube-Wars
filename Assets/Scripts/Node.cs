@@ -12,14 +12,22 @@ namespace Node
         [SerializeField] internal int currentUnits = 4;
         [SerializeField] internal float productionTimer;
         [SerializeField] internal Color color;
+
+        public event Action onChangeLeader;
         
         [Header("Conections")]
         public List<Node> neighbours;
         
         public NodeScriptable nodeData;
 
-
+        private Material material;
+        
         private void Awake()
+        {
+            LoadColor(ownerId);
+        }
+
+        private void LoadColor(int ownerId)
         {
             switch (ownerId)
             {
@@ -33,6 +41,9 @@ namespace Node
                     color = Color.blue;
                     break;
             }
+            
+            material = GetComponent<Renderer>().material;
+            material.SetColor("_BaseColor", color);
         }
 
         public bool IsConnectedTo(Node targetNode)
@@ -54,11 +65,52 @@ namespace Node
         {
             currentUnits = Mathf.Min(++currentUnits, nodeData.maxUnits);
         }
-
+        
         public void ReduceUnits(int unitsToReduce)
         {
-           currentUnits -= unitsToReduce;
+            currentUnits -= unitsToReduce;
         }
+
+        public void ReduceUnits(Squad squad)
+        {
+           currentUnits -= squad.units;
+           if (currentUnits < 0)
+           {
+               ChangeLeader(squad, currentUnits);
+           }
+        }
+
+        public void ChangeLeader(Squad squad, int expectedUnits)
+        {
+           ownerId = squad.ownerId;
+           currentUnits = Mathf.Abs(expectedUnits);
+           LoadColor(ownerId);
+           onChangeLeader?.Invoke();
+        }
+
+        public void IncreaseUnits(int unitsToIncrease)
+        {
+            currentUnits += unitsToIncrease;
+            if (currentUnits >= nodeData.maxUnits)
+            {
+                currentUnits = nodeData.maxUnits;
+            }
+        }
+
+        public void ReceiveSquad(Squad squad)
+        {
+            if (squad.ownerId == ownerId)
+            {
+                IncreaseUnits(squad.units);
+            }
+
+            if (squad.ownerId != ownerId)
+            {
+                ReduceUnits(squad);
+            }
+            
+        }
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

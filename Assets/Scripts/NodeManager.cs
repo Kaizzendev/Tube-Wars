@@ -8,6 +8,22 @@ namespace Node
     {
         public List<Node> allNodes = new List<Node>();
 
+
+        private void OnEnable()
+        {
+            SquadEventManager.onSquadReachNode += ReceiveSquad;
+        }
+
+        private void OnDisable()
+        {
+            SquadEventManager.onSquadReachNode -= ReceiveSquad;
+        }
+
+        private void ReceiveSquad(Node node, Squad squad)
+        {
+            node.ReceiveSquad(squad);
+        }
+
         private void Start()
         {
             Node[] nodes = FindObjectsByType<Node>(FindObjectsSortMode.None);

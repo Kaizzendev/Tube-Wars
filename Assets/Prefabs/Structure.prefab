@@ -143,9 +143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Node
   id: 0
-  ownerId: 1
+  ownerId: 2
   currentUnits: 0
-  productionTimer: 2
+  productionTimer: 1
   color: {r: 0, g: 0, b: 0, a: 0}
   neighbours: []
   nodeData: {fileID: 11400000, guid: c6406afb18ac4b04a801e409cf2ecaf1, type: 2}

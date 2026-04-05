@@ -54,5 +54,6 @@ public class Squad : MonoBehaviour
         }
       
         Debug.Log("He llegado a: " + targetNode.name);
+        SquadEventManager.onSquadReachNode?.Invoke(targetNode, this);
     }
 }
