@@ -2,51 +2,52 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+namespace Node
 {
-    [Header("Data")]
-    [SerializeField] private int id;
-    public int ownerId;
-    public List<Unit> currentUnits;
-    private float productionTimer;
-    
-    [Header("Conections")]
-    public List<Node> neighbours;
-    
-    public NodeScriptable nodeData;
-
-
-    public bool IsConnectedTo(Node targetNode)
+    public class Node : MonoBehaviour
     {
-        return neighbours.Contains(targetNode);
-    }
-
-    public void Tick(float deltaTime)
-    {
-        productionTimer += deltaTime;
-        if (productionTimer >= nodeData.productionRate)
+        [Header("Data")]
+        [SerializeField] private int id;
+        [SerializeField] internal int ownerId;
+        [SerializeField] internal int currentUnits = 4;
+        [SerializeField] internal float productionTimer;
+        
+        [Header("Conections")]
+        public List<Node> neighbours;
+        
+        public NodeScriptable nodeData;
+        
+        public bool IsConnectedTo(Node targetNode)
         {
-            ProduceUnit();
-            productionTimer = 0f;
+            return neighbours.Contains(targetNode);
         }
-    }
 
-    public void ProduceUnit()
-    {
-        Unit unit = UnitFactory.Instance.CreateUnit(this, ownerId, speed: 5f);
-        currentUnits.Add(unit);
-    }
+        // public void Tick(float deltaTime)
+        // {
+        //     productionTimer += deltaTime;
+        //     if (productionTimer >= nodeData.productionRate)
+        //     {
+        //         ProduceUnit();
+        //         productionTimer = 0f;
+        //     }
+        // }
 
-    public void ReduceUnits(int unitsToReduce)
-    {
-        currentUnits.RemoveRange(1, unitsToReduce);
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        foreach (var node in neighbours)
+        public void ProduceUnit()
         {
-            Gizmos.DrawLine(transform.position, node.transform.position);
+            currentUnits = Mathf.Min(++currentUnits, nodeData.maxUnits);
+        }
+
+        public void ReduceUnits(int unitsToReduce)
+        {
+           currentUnits -= unitsToReduce;
+        }
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            foreach (var node in neighbours)
+            {
+                Gizmos.DrawLine(transform.position, node.transform.position);
+            }
         }
     }
 }

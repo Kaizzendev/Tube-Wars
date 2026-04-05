@@ -2,22 +2,25 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeManager : MonoBehaviour
+namespace Node
 {
-    public List<Node> allNodes = new List<Node>();
-
-    private void Start()
+    public class NodeManager : MonoBehaviour
     {
-        Node[] nodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
-        allNodes = new List<Node>(nodes);
-    }
+        public List<Node> allNodes = new List<Node>();
 
-    private void Update()
-    {
-        float deltaTime = Time.deltaTime;
-        foreach (Node node in allNodes)
+        private void Start()
         {
-            node.Tick(deltaTime);
+            Node[] nodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
+            allNodes = new List<Node>(nodes);
+        }
+
+        private void Update()
+        {
+            float deltaTime = Time.deltaTime;
+            foreach (Node node in allNodes)
+            {
+                //node.Tick(deltaTime);
+            }
         }
     }
 }

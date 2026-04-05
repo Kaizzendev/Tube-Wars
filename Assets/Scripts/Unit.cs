@@ -1,18 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-   [SerializeField] private int ownerId;
-   [SerializeField] private float speed;
-   [SerializeField] private Node originNode;
-   [SerializeField] private Node targetNode;
+   public int squadId;
 
-   public void Initailize(Node originNode, int ownerId, float speed)
+   public void Initialize(Squad squad)
    {
-      this.originNode = originNode;
-      this.ownerId = ownerId;
-      this.speed = speed;
+      this.squadId = squad.id;
       
-      transform.position = originNode.transform.position;
+      transform.position = squad.originNode.transform.position;
    }
+
+
 }
