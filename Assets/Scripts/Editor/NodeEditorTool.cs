@@ -35,6 +35,9 @@ namespace Node
                 {
                     Node a = nodes[i];
                     Node b = nodes[j];
+                    
+                    Undo.RecordObject(a, "Modify Node Connections");
+                    Undo.RecordObject(b, "Modify Node Connections");
 
                     if (!a.neighbours.Contains(b))
                     {
@@ -53,6 +56,9 @@ namespace Node
                     {
                         b.neighbours.Remove(a);
                     }
+                    
+                    EditorUtility.SetDirty(a);
+                    EditorUtility.SetDirty(b);
                 }
             }
         }

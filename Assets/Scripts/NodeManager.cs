@@ -19,7 +19,7 @@ namespace Node
             float deltaTime = Time.deltaTime;
             foreach (Node node in allNodes)
             {
-                //node.Tick(deltaTime);
+                node.Tick(deltaTime);
             }
         }
     }

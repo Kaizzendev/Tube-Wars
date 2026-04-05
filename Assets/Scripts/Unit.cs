@@ -11,6 +11,4 @@ public class Unit : MonoBehaviour
       
       transform.position = squad.originNode.transform.position;
    }
-
-
 }

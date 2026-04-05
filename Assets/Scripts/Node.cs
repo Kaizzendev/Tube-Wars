@@ -11,26 +11,44 @@ namespace Node
         [SerializeField] internal int ownerId;
         [SerializeField] internal int currentUnits = 4;
         [SerializeField] internal float productionTimer;
+        [SerializeField] internal Color color;
         
         [Header("Conections")]
         public List<Node> neighbours;
         
         public NodeScriptable nodeData;
-        
+
+
+        private void Awake()
+        {
+            switch (ownerId)
+            {
+                case 0:
+                    color = Color.grey;
+                    break;
+                case 1:
+                    color = Color.red;
+                    break;
+                case 2:
+                    color = Color.blue;
+                    break;
+            }
+        }
+
         public bool IsConnectedTo(Node targetNode)
         {
             return neighbours.Contains(targetNode);
         }
 
-        // public void Tick(float deltaTime)
-        // {
-        //     productionTimer += deltaTime;
-        //     if (productionTimer >= nodeData.productionRate)
-        //     {
-        //         ProduceUnit();
-        //         productionTimer = 0f;
-        //     }
-        // }
+        public void Tick(float deltaTime)
+        {
+            productionTimer += deltaTime;
+            if (productionTimer >= nodeData.productionRate)
+            {
+                ProduceUnit();
+                productionTimer = 0f;
+            }
+        }
 
         public void ProduceUnit()
         {
