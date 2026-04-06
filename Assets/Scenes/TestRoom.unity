@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: ownerId
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: productionTimer
@@ -1162,6 +1162,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d14cfabe7b80e4f86f00b1fa94de94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Node
+--- !u!1 &1607451304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1607451306}
+  - component: {fileID: 1607451305}
+  m_Layer: 0
+  m_Name: PathFinding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1607451305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607451304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550e31c0f58b0074f85c30efdf5be6d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PathFinding
+--- !u!4 &1607451306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607451304}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.51838, y: 0, z: 4.83107}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1608770846 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
@@ -1206,6 +1250,7 @@ GameObject:
   - component: {fileID: 1669492683}
   - component: {fileID: 1669492682}
   - component: {fileID: 1669492684}
+  - component: {fileID: 1669492685}
   m_Layer: 0
   m_Name: NodeSelectionSystem
   m_TagString: Untagged
@@ -1227,6 +1272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NodeSelectionSystem
   squadManager: {fileID: 175160701}
   mainCamera: {fileID: 330585545}
+  pathFinding: {fileID: 1607451305}
 --- !u!4 &1669492683
 Transform:
   m_ObjectHideFlags: 0
@@ -1283,11 +1329,31 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d4d7daef-a7d1-4908-b598-a95f37e5311e
     m_ActionName: 'Gameplay/ClickNode[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 12e55c9f-5540-4188-a6bf-5b570e1e15bd
+    m_ActionName: 'Gameplay/MoveCamera[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 119a6253-ca4a-4110-ad41-37aeeef8f515
+    m_ActionName: 'Gameplay/Zoom[/Mouse/scroll/y]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1669492685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669492681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550e31c0f58b0074f85c30efdf5be6d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PathFinding
 --- !u!114 &1681923100 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
@@ -1528,3 +1594,4 @@ SceneRoots:
   - {fileID: 667510153}
   - {fileID: 2108033158}
   - {fileID: 1237827366}
+  - {fileID: 1607451306}

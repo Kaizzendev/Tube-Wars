@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ namespace Node
 
         public SquadManager squadManager;
         public Camera mainCamera;
+        public PathFinding pathFinding;
         
         public void SelectNode()
         {
@@ -44,7 +46,7 @@ namespace Node
                 _targetNode = clickedNode; 
                 //TODO: Resaltar nodo seleccionado SelectedNode()
                 
-                
+                //TODO: checkear pathfinding
                 SendUnits(_originNode, _targetNode);
                 _originNode = null;
                 _targetNode = null;
@@ -57,14 +59,16 @@ namespace Node
 
         private void SendUnits(Node origin, Node target)
         {
-            if (!origin.IsConnectedTo(target))
+            List<Node> path = pathFinding.GetPath(origin, target);
+            if (path == null)
             {
                 Debug.Log("No connection to " + target);
                 return;
             }
+            Debug.Log(path.ToString());
 
             int unitsToSend = origin.currentUnits;
-            squadManager.InitializeSquad(origin, target, origin.ownerId, unitsToSend, speed: 5);
+            squadManager.InitializeSquad(origin, target, origin.ownerId, unitsToSend, speed: 1, path);
 
             origin.ReduceUnits(unitsToSend);
         }

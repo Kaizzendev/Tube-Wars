@@ -19,6 +19,9 @@ namespace Node
         
         public NodeScriptable nodeData;
         public event Action onChangeLeader;
+
+        [HideInInspector] public Node parent;
+        [HideInInspector] public bool isVisited;
         
         private void Awake()
         {

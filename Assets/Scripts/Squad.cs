@@ -13,16 +13,16 @@ public class Squad : MonoBehaviour
     public float speed;
 
     public List<Unit> squadUnits;
-    public void Initailize(Node.Node originNode, Node.Node targetNode, int ownerId, int units, float speed)
+    public void Initailize(Node.Node originNode, Node.Node targetNode, int ownerId, int units, float speed, List<Node.Node> path)
     {
-        this.originNode = originNode;
-        this.targetNode = targetNode;
+        this.originNode = path[0];
+        this.targetNode = path[path.Count - 1];
         this.ownerId = ownerId;
         this.units = units;
         this.speed = speed;
         
         GenerateUnits(units);
-        StartCoroutine(GoTo(targetNode));
+        StartCoroutine(GoTo(targetNode, path));
     }
 
     public void GenerateUnits(int unitsToSend)
@@ -42,14 +42,19 @@ public class Squad : MonoBehaviour
         }
     }
 
-    public IEnumerator GoTo(Node.Node targetNode)
+    public IEnumerator GoTo(Node.Node targetNode, List<Node.Node> path)
     {
-        float t = 0f;
-        while (t < speed)
+        Node.Node currentNode = originNode;
+        for (int i = 0; i < path.Count; i++)
         {
-            t += Time.deltaTime;
-            transform.position = Vector3.Lerp(originNode.transform.position, targetNode.transform.position, t / speed);
-            yield return null;
+            float t = 0f;
+            while (t < speed)
+            {
+                t += Time.deltaTime;
+                transform.position = Vector3.Lerp(currentNode.transform.position, path[i].transform.position, t / speed);
+                yield return null;
+            }
+            currentNode = path[i];
         }
       
         Debug.Log("He llegado a: " + targetNode.name);
