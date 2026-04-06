@@ -27,7 +27,7 @@ namespace Node
                 Node clickedNode = hit.collider.GetComponent<Node>();
                 if (clickedNode == null)
                 {
-                    return;
+                    _originNode = null;
                 }
                 Debug.Log(hit.collider.gameObject.name);
                 HandleNodeClick(clickedNode);
@@ -46,7 +46,6 @@ namespace Node
                 _targetNode = clickedNode; 
                 //TODO: Resaltar nodo seleccionado SelectedNode()
                 
-                //TODO: checkear pathfinding
                 SendUnits(_originNode, _targetNode);
                 _originNode = null;
                 _targetNode = null;

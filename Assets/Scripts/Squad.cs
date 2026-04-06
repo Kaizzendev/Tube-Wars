@@ -33,13 +33,21 @@ public class Squad : MonoBehaviour
             squadUnits.Add(unit);
         }
     }
-
-    private void Update()
+    
+    private void OnDestroy()
     {
         foreach (var unit in squadUnits)
         {
-            unit.transform.position = transform.position;
+            unit.gameObject.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+         foreach (var unit in squadUnits)
+         {
+             unit.transform.position = transform.position;
+         }
     }
 
     public IEnumerator GoTo(Node.Node targetNode, List<Node.Node> path)

@@ -60,11 +60,6 @@ namespace Node
             }
         }
 
-        public bool IsConnectedTo(Node targetNode)
-        {
-            return neighbours.Contains(targetNode);
-        }
-
         public void Tick(float deltaTime)
         {
             _productionTimer += deltaTime;
