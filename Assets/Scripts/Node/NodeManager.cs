@@ -38,5 +38,11 @@ namespace Node
                 node.Tick(deltaTime);
             }
         }
+
+        public List<Node> GetNodes()
+        {
+            return allNodes;
+        }
+        
     }
 }
