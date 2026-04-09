@@ -3,35 +3,60 @@ using UnityEngine;
 
 namespace AIUtility
 {
-    public class UtilitySystemBrain : MonoBehaviour
+    public class UtilitySystemBrain: MonoBehaviour
     {
-        private float _bestScore = 0;
-        private UtilitySystemAction _bestAction = null;
-        private List<UtilitySystemAction> _actions = new List<UtilitySystemAction>();
+        private Team _self;
+        [SerializeField] private List<UtilitySystemAction> _actions;
+        private IAContext _context = new IAContext();
 
-        private void Sense()
+        private float _thinkTimer;
+        private float _thinkRatio = 5f;
+
+        public void Init(Team team)
         {
-            // Gather world data
+            _self = team;
+        }
+        
+        public void Tick(float deltaTime, List<Team> allTeams, List<Node.Node> allNodes)
+        {
+            _thinkTimer += deltaTime;
+            if (_thinkTimer >= _thinkRatio)
+            {
+                Execute(allTeams, allNodes);
+                _thinkTimer = 0f;
+            }
         }
 
-        private void Think()
+        public void Execute(List<Team> allTeams, List<Node.Node> allNodes)
         {
-            // Evaluate data
+            Sense(allTeams, allNodes);
+            Act();
+        }
+        
+        private void Sense(List<Team> allTeams, List<Node.Node> allNodes)
+        {
+            _context.self =  _self;
+            _context.allTeams = allTeams;
+            _context.allNodes = allNodes;
+            _context.self.totalUnits = 200;
         }
 
         private void Act()
         {
+            float bestScore = 0;
+            UtilitySystemAction bestAction = null;
+            
             foreach (var action in _actions)
             {
-                float score = action.EvaluateScore();
+                float score = action.EvaluateScore(_context);
 
-                if (score > _bestScore)
+                if (score > bestScore)
                 {
-                    _bestScore = score;
-                    _bestAction = action;
+                    bestScore = score;
+                    bestAction = action;
                 }
-
             }
+            bestAction.ExecuteAction(_context);
         }
     }
 }

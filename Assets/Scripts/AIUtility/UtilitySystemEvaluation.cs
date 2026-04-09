@@ -3,5 +3,5 @@ using UnityEngine;
 
 public abstract class UtilitySystemEvaluation: ScriptableObject
 {
-    public abstract float GetScore();
+    public abstract float GetScore(IAContext context);
 }

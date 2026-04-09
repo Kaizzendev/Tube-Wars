@@ -7,9 +7,9 @@ namespace AIUtility
     public class UtilitySystemEvaluationRelativeStrength: UtilitySystemEvaluationFunction
     {
         public AnimationCurve curve;
-        public override float GetScore()
+        public override float GetScore(IAContext context)
         {
-            float inputScore = //TODO recibir info del contexto;
+            float inputScore = context.self.totalUnits;
             float utilityScore = curve.Evaluate(inputScore);
             return Mathf.Clamp01(utilityScore);
         }

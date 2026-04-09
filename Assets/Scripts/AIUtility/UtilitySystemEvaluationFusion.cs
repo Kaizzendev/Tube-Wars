@@ -7,7 +7,7 @@ namespace AIUtility
     {
         public List<UtilitySystemEvaluation> evaluations;
 
-        public abstract override float GetScore();
+        public abstract override float GetScore(IAContext context);
 
         private float FusionSum(float a, float b)
         {

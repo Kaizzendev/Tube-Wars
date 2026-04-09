@@ -24,7 +24,7 @@ namespace Node
             node.ReceiveSquad(squad);
         }
 
-        private void Start()
+        private void Awake()
         {
             Node[] nodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
             allNodes = new List<Node>(nodes);

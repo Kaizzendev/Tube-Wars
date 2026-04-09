@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public abstract class UtilitySystemAction
+public abstract class UtilitySystemAction: ScriptableObject
 {
-    internal UtilitySystemEvaluation _utilitySystemEvaluation;
+    public UtilitySystemEvaluation utilitySystemEvaluation;
 
-    public float EvaluateScore()
+    public float EvaluateScore(IAContext context)
     {
-        return _utilitySystemEvaluation.GetScore();
+        return utilitySystemEvaluation.GetScore(context);
     }
-    public abstract void ExecuteAction();
+    public abstract void ExecuteAction(IAContext context);
 }

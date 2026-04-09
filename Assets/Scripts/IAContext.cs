@@ -6,4 +6,6 @@ public class IAContext
     public Node.Node targetNode;    
     public List<Team> allTeams;
     public List<Node.Node> allNodes;
+    public int totalUnits;
+    public int allyUnits;
 }
