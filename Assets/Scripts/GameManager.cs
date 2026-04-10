@@ -11,8 +11,11 @@ public class GameManager : MonoBehaviour
     public NodeManager nodeManager;
     private List<UtilitySystemBrain> _brains =  new List<UtilitySystemBrain>();
     public GameObject brainPrefab;
-    
+    public NodeSelectionSystem nodeSelectionSystem;
+    [SerializeField] private CombatSystem _combatSystem;
     public static GameManager Instance;
+    private Dictionary<int, Team> _teamsById;
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -21,13 +24,55 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+    
+    private void OnEnable()
+    {
+        GameEventManager.onChangeLeader += HandleNodeChange;
+    }
+
+    private void OnDisable()
+    {
+        GameEventManager.onChangeLeader -= HandleNodeChange;
+    }
+
+    private void HandleNodeChange(Node.Node node, int oldTeam, int newTeam)
+    {
+        ChangeTeam(node, oldTeam, newTeam);
+        foreach (UtilitySystemBrain brain in _brains)
+        {
+            brain.DirtyContext();
+        }
+    }
+
+    private void ChangeTeam(Node.Node node, int oldTeamId, int newTeamId)
+    {
+        Team oldTeam = _teamsById[oldTeamId];
+        Team newTeam = _teamsById[newTeamId];
         
+        oldTeam.ownedNodes.Remove(node);
+        newTeam.ownedNodes.Add(node);
+
+        if (oldTeam.ownedNodes.Count <= 0)
+        {
+            _teamsById.Remove(oldTeamId);
+            _brains.Remove(oldTeam.brain);
+            _allTeams.Remove(oldTeam);
+            Destroy(oldTeam.brain);
+        }
     }
 
     private void Start()
     {
+        InitPlayer();
         BuildTeamsFromNodes();
         GenerateBrains();
+    }
+
+    private void InitPlayer()
+    {
+        nodeSelectionSystem.Init(_combatSystem);
     }
 
     private void Update()
@@ -41,31 +86,26 @@ public class GameManager : MonoBehaviour
 
     private void BuildTeamsFromNodes()
     {
-        Dictionary<int, Team> teamsById = new Dictionary<int, Team>();
+        _teamsById = new Dictionary<int, Team>();
 
         foreach (var node in nodeManager.GetNodes())
         {
             int id = node.ownerId;
-            
-            if (id is 0 or 1) continue;
 
-            if (!teamsById.ContainsKey(id))
+            if (!_teamsById.ContainsKey(id))
             {
                 Team team = new Team
                 {
                     id = id,
                     ownedNodes = new List<Node.Node>()
                 };
-                    teamsById.Add(id, team);
+                _teamsById.Add(id, team);
             }
-            teamsById[id].ownedNodes.Add(node);
+            _teamsById[id].ownedNodes.Add(node);
         }
-        _allTeams = new List<Team>(teamsById.Values);
+        _allTeams = new List<Team>(_teamsById.Values);
     }
     
-    //TODO: Remove or Add conquered nodes to teams using events
-    
-
     private void GenerateBrains()
     {
         foreach (Team team in _allTeams)
@@ -74,7 +114,8 @@ public class GameManager : MonoBehaviour
             {
                 var brain = Instantiate(brainPrefab);
                 _brains.Add(brain.GetComponent<UtilitySystemBrain>());
-                brain.GetComponent<UtilitySystemBrain>().Init(team);
+                team.brain = brain.GetComponent<UtilitySystemBrain>();
+                brain.GetComponent<UtilitySystemBrain>().Init(team, _combatSystem);
             }
         }
     }

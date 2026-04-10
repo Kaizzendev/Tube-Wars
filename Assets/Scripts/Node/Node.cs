@@ -18,7 +18,6 @@ namespace Node
         public List<Node> neighbours;
         
         public NodeScriptable nodeData;
-        public event Action onChangeLeader;
 
         [HideInInspector] public Node parent;
         [HideInInspector] public bool isVisited;
@@ -32,6 +31,9 @@ namespace Node
         {
             switch (ownerId)
             {
+                case -1:
+                    color = Color.black;
+                    break;
                 case 0:
                     color = Color.grey;
                     break;
@@ -40,6 +42,12 @@ namespace Node
                     break;
                 case 2:
                     color = Color.blue;
+                    break;
+                case 3:
+                    color = Color.green;
+                    break;
+                case 4:
+                    color = Color.yellow;
                     break;
             }
             
@@ -99,10 +107,10 @@ namespace Node
 
         public void ChangeLeader(Squad squad, int expectedUnits)
         {
+           LoadColor(ownerId);
+           GameEventManager.onChangeLeader?.Invoke(this, ownerId, squad.ownerId);
            ownerId = squad.ownerId;
            currentUnits = Mathf.Abs(expectedUnits);
-           LoadColor(ownerId);
-           onChangeLeader?.Invoke();
         }
 
         private void IncreaseUnits(int unitsToIncrease)

@@ -8,4 +8,5 @@ public class IAContext
     public List<Node.Node> allNodes;
     public int totalUnits;
     public int allyUnits;
+    public CombatSystem combatSystem;
 }

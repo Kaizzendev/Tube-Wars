@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,19 +12,27 @@ namespace AIUtility
 
         private float _thinkTimer;
         private float _thinkRatio = 5f;
-
-        public void Init(Team team)
+        private CombatSystem _combatSystem;
+        private bool _isContextDirty;
+        public void Init(Team team, CombatSystem combatSystem)
         {
             _self = team;
+            _combatSystem = combatSystem;
         }
-        
+
+        public void DirtyContext()
+        {
+            _isContextDirty = true;
+        }
+
         public void Tick(float deltaTime, List<Team> allTeams, List<Node.Node> allNodes)
         {
             _thinkTimer += deltaTime;
-            if (_thinkTimer >= _thinkRatio)
+            if (_thinkTimer >= _thinkRatio || _isContextDirty)
             {
                 Execute(allTeams, allNodes);
                 _thinkTimer = 0f;
+                _isContextDirty = false;
             }
         }
 
@@ -38,7 +47,19 @@ namespace AIUtility
             _context.self =  _self;
             _context.allTeams = allTeams;
             _context.allNodes = allNodes;
-            _context.self.totalUnits = 200;
+            _context.self.totalUnits = GetTotalUnits();
+            _context.combatSystem = _combatSystem;
+        }
+
+        private int GetTotalUnits()
+        {
+            int totalUnits = 0;
+            foreach (Node.Node node in _context.self.ownedNodes)
+            {
+                totalUnits += node.currentUnits;
+            }
+            
+            return totalUnits;
         }
 
         private void Act()

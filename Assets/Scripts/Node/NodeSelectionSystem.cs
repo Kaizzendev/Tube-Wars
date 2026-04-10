@@ -9,10 +9,8 @@ namespace Node
         private Node _originNode;
         private Node _targetNode;
 
-        public SquadManager squadManager;
         public Camera mainCamera;
-        public PathFinding pathFinding;
-        
+        private CombatSystem _combatSystem;
         public void SelectNode()
         {
             if (mainCamera == null)
@@ -34,7 +32,12 @@ namespace Node
             }
         }
 
-        private void HandleNodeClick(Node clickedNode)
+        public void Init(CombatSystem combatSystem)
+        {
+            this._combatSystem = combatSystem;
+        }
+
+        private void HandleNodeClick(Node clickedNode) // TODO: check player id to execute actions
         {
             if (_originNode == null)
             {
@@ -46,7 +49,7 @@ namespace Node
                 _targetNode = clickedNode; 
                 //TODO: Resaltar nodo seleccionado SelectedNode()
                 
-                SendUnits(_originNode, _targetNode);
+                _combatSystem.SendUnits(_originNode, _targetNode);
                 _originNode = null;
                 _targetNode = null;
             }
@@ -56,20 +59,6 @@ namespace Node
             }
         }
 
-        private void SendUnits(Node origin, Node target)
-        {
-            List<Node> path = pathFinding.GetPath(origin, target);
-            if (path == null)
-            {
-                Debug.Log("No connection to " + target);
-                return;
-            }
-            Debug.Log(path.ToString());
-
-            int unitsToSend = origin.currentUnits;
-            squadManager.InitializeSquad(origin, target, origin.ownerId, unitsToSend, speed: 1, path);
-
-            origin.ReduceUnits(unitsToSend);
-        }
+       
     }
 }

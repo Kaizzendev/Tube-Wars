@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -18,12 +19,12 @@ namespace Node
 
         private void OnEnable()
         {
-            _node.onChangeLeader += ChangeColor;
+            GameEventManager.onChangeLeader += ChangeColor;
         }
 
         private void OnDisable()
         {
-            _node.onChangeLeader -= ChangeColor;
+            GameEventManager.onChangeLeader -= ChangeColor;
         }
 
         private void Awake()
@@ -35,10 +36,10 @@ namespace Node
         {
             upgradePanel.SetActive(false);
             unitsText.text = "";
-            ChangeColor();
+            ChangeColor(null, 0,0);
         }
 
-        private void ChangeColor()
+        private void ChangeColor(Node node, int a, int b)
         {
             unitsBar.color = _node.color;
             upgradeBar.color = _node.color;
