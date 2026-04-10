@@ -13,8 +13,11 @@ public class GameManager : MonoBehaviour
     public GameObject brainPrefab;
     public NodeSelectionSystem nodeSelectionSystem;
     [SerializeField] private CombatSystem _combatSystem;
+    private Dictionary<int, Team> _teamsById = new Dictionary<int, Team>();
+    public SquadManager squadManager;
+    
     public static GameManager Instance;
-    private Dictionary<int, Team> _teamsById;
+    
     
     private void Awake()
     {
@@ -48,17 +51,29 @@ public class GameManager : MonoBehaviour
 
     private void ChangeTeam(Node.Node node, int oldTeamId, int newTeamId)
     {
+        bool isSquadAlive = false;
+
         Team oldTeam = _teamsById[oldTeamId];
         Team newTeam = _teamsById[newTeamId];
-        
+
         oldTeam.ownedNodes.Remove(node);
         newTeam.ownedNodes.Add(node);
 
-        if (oldTeam.ownedNodes.Count <= 0)
+        for (int i = 0; i < squadManager.squads.Count; i++)
+        {
+            if (squadManager.squads[i].ownerId == oldTeamId)
+            {
+                isSquadAlive = true;
+                break;
+            }
+        }
+        
+        if (oldTeam.ownedNodes.Count <= 0 && !isSquadAlive)
         {
             _teamsById.Remove(oldTeamId);
             _brains.Remove(oldTeam.brain);
             _allTeams.Remove(oldTeam);
+            
             Destroy(oldTeam.brain);
         }
     }

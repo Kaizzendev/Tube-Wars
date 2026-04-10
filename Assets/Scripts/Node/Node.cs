@@ -107,10 +107,11 @@ namespace Node
 
         public void ChangeLeader(Squad squad, int expectedUnits)
         {
-           LoadColor(ownerId);
-           GameEventManager.onChangeLeader?.Invoke(this, ownerId, squad.ownerId);
-           ownerId = squad.ownerId;
-           currentUnits = Mathf.Abs(expectedUnits);
+            int oldOwnerId = ownerId;
+            ownerId = squad.ownerId;
+            LoadColor(ownerId);
+            currentUnits = Mathf.Abs(expectedUnits);
+            GameEventManager.onChangeLeader?.Invoke(this, oldOwnerId, ownerId);
         }
 
         private void IncreaseUnits(int unitsToIncrease)

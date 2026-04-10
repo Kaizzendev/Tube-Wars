@@ -13,7 +13,6 @@ public class CombatSystem : MonoBehaviour
             Debug.Log("No connection to " + target);
             return;
         }
-        Debug.Log(path.ToString());
 
         int unitsToSend = origin.currentUnits;
         squadManager.InitializeSquad(origin, target, origin.ownerId, unitsToSend, speed: 1, path);
