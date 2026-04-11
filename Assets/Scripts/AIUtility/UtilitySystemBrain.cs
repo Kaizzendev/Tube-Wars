@@ -47,11 +47,12 @@ namespace AIUtility
             _context.self =  _self;
             _context.allTeams = allTeams;
             _context.allNodes = allNodes;
-            _context.self.totalUnits = GetTotalUnits();
+            _context.self.totalUnits = GetTeamTotalUnits();
             _context.combatSystem = _combatSystem;
+            _context.totalUnits = GetGameTotalUnits();
         }
 
-        private int GetTotalUnits()
+        private int GetTeamTotalUnits()
         {
             int totalUnits = 0;
             foreach (Node.Node node in _context.self.ownedNodes)
@@ -59,6 +60,17 @@ namespace AIUtility
                 totalUnits += node.currentUnits;
             }
             
+            return totalUnits;
+        }
+
+        private int GetGameTotalUnits()
+        {
+            int totalUnits = 0;
+            foreach (Node.Node node in _context.allNodes)
+            {
+                totalUnits += node.currentUnits;
+            }
+
             return totalUnits;
         }
 
@@ -76,6 +88,7 @@ namespace AIUtility
                     bestScore = score;
                     bestAction = action;
                 }
+                Debug.Log("Action: " + action.name + " score: " + score);
             }
             bestAction.ExecuteAction(_context);
         }
