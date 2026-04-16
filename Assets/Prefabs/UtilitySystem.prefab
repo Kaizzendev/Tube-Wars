@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a1b8b4a58d00541a7d4c5ab4677dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIUtility.UtilitySystemBrain
-  _actions:
+  actions:
   - {fileID: 11400000, guid: c9a9fb5f8ea7f924a83eaad4a148a4d3, type: 2}
   - {fileID: 11400000, guid: 4d81be7193c1195489f26fa38fab399a, type: 2}

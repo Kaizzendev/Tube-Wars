@@ -37,11 +37,12 @@ namespace Node
             this._combatSystem = combatSystem;
         }
 
-        private void HandleNodeClick(Node clickedNode) // TODO: check player id to execute actions
+        private void HandleNodeClick(Node clickedNode) // TODO: CHECK PLAYER OWNER ID 
         {
             if (_originNode == null)
             {
                 _originNode = clickedNode;
+                GameEventManager.onNodeSelected.Invoke(clickedNode);
                 //TODO: Resaltar nodo seleccionado SelectedNode()
             }
             else if (clickedNode != _originNode)

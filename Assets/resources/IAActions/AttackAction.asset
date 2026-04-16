@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: AttackAction
   m_EditorClassIdentifier: Assembly-CSharp::AIUtility.UtilitySystemActionAttack
   utilitySystemEvaluation: {fileID: 11400000, guid: 1ebe3154f3ef1394083cbf4075863469, type: 2}
+  actionName: Attack

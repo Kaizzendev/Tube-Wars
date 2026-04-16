@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: IdleAction
   m_EditorClassIdentifier: Assembly-CSharp::AIUtility.UtilitySystemActionIdle
   utilitySystemEvaluation: {fileID: 11400000, guid: a8c44a1c54ffdb94b81e12454f827823, type: 2}
+  actionName: Idle

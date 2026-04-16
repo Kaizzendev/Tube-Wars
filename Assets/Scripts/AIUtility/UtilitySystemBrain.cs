@@ -6,17 +6,18 @@ namespace AIUtility
 {
     public class UtilitySystemBrain: MonoBehaviour
     {
-        private Team _self;
-        [SerializeField] private List<UtilitySystemAction> _actions;
+        public Team self;
+        public List<UtilitySystemAction> actions;
         private IAContext _context = new IAContext();
 
         private float _thinkTimer;
         private float _thinkRatio = 5f;
         private CombatSystem _combatSystem;
         private bool _isContextDirty;
+        public float score = 0;
         public void Init(Team team, CombatSystem combatSystem)
         {
-            _self = team;
+            self = team;
             _combatSystem = combatSystem;
         }
 
@@ -44,7 +45,7 @@ namespace AIUtility
         
         private void Sense(List<Team> allTeams, List<Node.Node> allNodes)
         {
-            _context.self =  _self;
+            _context.self =  self;
             _context.allTeams = allTeams;
             _context.allNodes = allNodes;
             _context.self.totalUnits = GetTeamTotalUnits();
@@ -79,16 +80,16 @@ namespace AIUtility
             float bestScore = 0;
             UtilitySystemAction bestAction = null;
             
-            foreach (var action in _actions)
+            foreach (var action in actions)
             {
-                float score = action.EvaluateScore(_context);
+                score = action.EvaluateScore(_context);
 
                 if (score > bestScore)
                 {
                     bestScore = score;
                     bestAction = action;
                 }
-                Debug.Log("Action: " + action.name + " score: " + score);
+                Debug.Log("Action: " + action.actionName + " score: " + score);
             }
             bestAction.ExecuteAction(_context);
         }

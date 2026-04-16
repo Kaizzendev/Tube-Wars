@@ -127,7 +127,8 @@ public class GameManager : MonoBehaviour
         {
             if (team.id > 1)
             {
-                var brain = Instantiate(brainPrefab);
+                GameObject parent = new GameObject("BrainParent");
+                var brain = Instantiate(brainPrefab, parent.transform);
                 _brains.Add(brain.GetComponent<UtilitySystemBrain>());
                 team.brain = brain.GetComponent<UtilitySystemBrain>();
                 brain.GetComponent<UtilitySystemBrain>().Init(team, _combatSystem);
