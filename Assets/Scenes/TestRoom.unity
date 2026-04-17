@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: neighbours.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[0]'
@@ -190,7 +190,11 @@ PrefabInstance:
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[1]'
       value: 
-      objectReference: {fileID: 1552547880}
+      objectReference: {fileID: 1632785859}
+    - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: 'neighbours.Array.data[2]'
+      value: 
+      objectReference: {fileID: 586118506}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -732,6 +736,17 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &586118506 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+  m_PrefabInstance: {fileID: 1490551376}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d14cfabe7b80e4f86f00b1fa94de94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
 --- !u!1001 &667510153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1055,7 +1070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: neighbours.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[0]'
@@ -1064,7 +1079,7 @@ PrefabInstance:
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[1]'
       value: 
-      objectReference: {fileID: 1632785859}
+      objectReference: {fileID: 712473709}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[2]'
       value: 
@@ -1105,6 +1120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   nodeManager: {fileID: 808501568}
   brainPrefab: {fileID: 8855208115906157103, guid: 2deb07f9790c7824baa3cbb9a41a0d42, type: 3}
+  nodeSelectionSystem: {fileID: 0}
+  _combatSystem: {fileID: 0}
+  squadManager: {fileID: 0}
 --- !u!4 &1128229614
 Transform:
   m_ObjectHideFlags: 0
@@ -1192,6 +1210,75 @@ PrefabInstance:
       propertyPath: 'neighbours.Array.data[1]'
       value: 
       objectReference: {fileID: 1608770846}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+--- !u!1001 &1490551376
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 172495021807277306, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_Name
+      value: Structure (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.240187
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6696007
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.0294833
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055601647270129886, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: neighbours.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: 'neighbours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1552547880}
+    - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
+      propertyPath: 'neighbours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1681923100}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1316,9 +1403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ae45d04b353324bb8fe0d1f5231d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NodeSelectionSystem
-  squadManager: {fileID: 175160701}
   mainCamera: {fileID: 330585545}
-  pathFinding: {fileID: 1607451305}
 --- !u!4 &1669492683
 Transform:
   m_ObjectHideFlags: 0
@@ -1520,16 +1605,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: neighbours.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[0]'
       value: 
-      objectReference: {fileID: 1681923100}
+      objectReference: {fileID: 1653743864}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[1]'
       value: 
-      objectReference: {fileID: 1632785859}
+      objectReference: {fileID: 586118506}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[2]'
       value: 
@@ -1601,16 +1686,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: neighbours.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[0]'
       value: 
-      objectReference: {fileID: 1608770846}
+      objectReference: {fileID: 1653743864}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[1]'
       value: 
-      objectReference: {fileID: 1653743864}
+      objectReference: {fileID: 1681923100}
     - target: {fileID: 7614112101799213331, guid: 057efd0a384fc6a4f9e3ad8da5c4301b, type: 3}
       propertyPath: 'neighbours.Array.data[2]'
       value: 
@@ -1642,3 +1727,4 @@ SceneRoots:
   - {fileID: 1237827366}
   - {fileID: 1607451306}
   - {fileID: 1128229614}
+  - {fileID: 1490551376}
