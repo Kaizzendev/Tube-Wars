@@ -15,6 +15,7 @@ namespace AIUtility
         private CombatSystem _combatSystem;
         private bool _isContextDirty;
         public float score = 0;
+        public Dictionary<string, float> actionScoreDict = new Dictionary<string, float>();
         public void Init(Team team, CombatSystem combatSystem)
         {
             self = team;
@@ -83,7 +84,7 @@ namespace AIUtility
             foreach (var action in actions)
             {
                 score = action.EvaluateScore(_context);
-
+                LoadDictionary(action.actionName, score);
                 if (score > bestScore)
                 {
                     bestScore = score;
@@ -92,6 +93,18 @@ namespace AIUtility
                 Debug.Log("Action: " + action.actionName + " score: " + score);
             }
             bestAction.ExecuteAction(_context);
+        }
+
+        private void LoadDictionary(string actionName, float score)
+        {
+            if (!actionScoreDict.ContainsKey(actionName))
+            {
+                actionScoreDict.Add(actionName, Mathf.Round(score * 100.0f) / 100.0f);
+            }
+            else
+            {
+                actionScoreDict[actionName] = Mathf.Round(score * 100.0f) / 100.0f;
+            }
         }
     }
 }

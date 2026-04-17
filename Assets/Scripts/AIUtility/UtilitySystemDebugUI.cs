@@ -20,11 +20,6 @@ public class UtilitySystemDebugUI : MonoBehaviour
     {
         GameEventManager.onNodeSelected -= LoadData;
     }
-    
-    private void Update()
-    {
-        LoadActionValues();
-    }
 
     private void LoadData(Node.Node node)
     {
@@ -49,16 +44,16 @@ public class UtilitySystemDebugUI : MonoBehaviour
     private void LoadBrainData()
     {
         if (selectedBrain == null) return;
-        foreach (UtilitySystemAction action in selectedBrain.actions)
+        var actionUis = FindObjectsByType<ActionUI>(FindObjectsSortMode.None);
+        foreach (var ui in actionUis)
+        {
+            Destroy(ui.gameObject);
+        }
+        foreach (var actionData in selectedBrain.actionScoreDict)
         {
             var actionUI = Instantiate(actionPrefabUI, transform);
             ActionUI actionUIComponent = actionUI.GetComponent<ActionUI>();
-            actionUIComponent.Setup(action.actionName, 0);
+            actionUIComponent.Setup(actionData.Key, actionData.Value);
         }
-    }
-
-    private void LoadActionValues()
-    {
-        
     }
 }
